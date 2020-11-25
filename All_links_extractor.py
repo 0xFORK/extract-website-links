@@ -83,14 +83,27 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Link Extractor Tool with Python")
     parser.add_argument("url", help="The URL to extract links from.")
+    parser.add_argument("-c", "--cat-name", help="Custom name for output name.", default='', type=str)
     parser.add_argument("-m", "--max-urls", help="Number of max URLs to crawl, default is 30.", default=30, type=int)
+    parser.add_argument("-p", "--max-page", help="Number of max page to crawl, default is 1.", default=1, type=int)
 
     args = parser.parse_args()
     url = args.url
+    cat_name = args.cat_name
     max_urls = args.max_urls
+    max_loop = args.max_page
 
-    crawl(url, max_urls=max_urls)
+    for x in range (1, max_loop+1):
+    	url = args.url + str(x)
+    	print(url)
+    	crawl(url, max_urls=max_urls)
 
+    # remove duplicate and sort
+    internal_urls = list(dict.fromkeys(internal_urls))
+    external_urls = list(dict.fromkeys(external_urls))
+    internal_urls.sort()
+    external_urls.sort()
+    
     print("[+] Total Internal links:", len(internal_urls))
     print("[+] Total External links:", len(external_urls))
     print("[+] Total URLs:", len(external_urls) + len(internal_urls))
@@ -98,11 +111,14 @@ if __name__ == "__main__":
     domain_name = urlparse(url).netloc
 
     # save the internal links to a file
-    with open(f"{domain_name}_internal_links.txt", "w") as f:
+    with open(f"{domain_name}_{cat_name}_internal_links.txt", "w") as f:
         for internal_link in internal_urls:
             print(internal_link.strip(), file=f)
 
     # save the external links to a file
-    with open(f"{domain_name}_external_links.txt", "w") as f:
+    with open(f"{domain_name}_{cat_name}_external_links.txt", "w") as f:
         for external_link in external_urls:
             print(external_link.strip(), file=f)
+            
+            
+            
