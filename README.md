@@ -1,14 +1,23 @@
 # Extract-All-Website-Links-in-Python
 It is a webcrawler which recursively crawls ALL pages in particular domain to list all the URLs of the website.
 
+## Install
 Run this commands to install requirments:
---> pip install -r requirements.txt
---> pip install requests bs4 colorama (We are going to use colorama just for using different colors when printing, to distinguish between internal and external links).
+```
+pip install -r requirements.txt
+pip install requests bs4 colorama
+```
+Colorama used for using different colors when printing, to distinguish between internal and external links.
 
+## How to Use
 To Run this .py file to get all the links of a website:
---> python All_links_extractor.py https://www.rirm.in/ -m 2
+```
+python All_links_extractor.py https://www.rirm.in/ -m 2
+```
 
+## Output
 You will get Output like This:
+```
 OUTPUT:
 [*] Internal link: https://www.rirm.in/
 [*] Internal link: https://www.rirm.in/about/
@@ -30,4 +39,4 @@ OUTPUT:
 [+] Total Internal links: 16
 [+] Total External links: 1
 [+] Total URLs: 17
-
+```
